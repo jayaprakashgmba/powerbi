@@ -1,0 +1,31 @@
+---
+name: Create and Upload Sample File to UAT Branch
+ 
+on:
+  workflow_dispatch:  # Manually trigger the workflow
+ 
+jobs:
+  create-upload-file:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout UAT branch
+        uses: actions/checkout@v4
+        with:
+          ref: uat  # Checkout the UAT branch
+ 
+      - name: Create a Sample File
+        run: |
+          echo "This is a sample file created for testing purposes." > sample.txt
+          cat sample.txt  # Display the content of the file for confirmation
+ 
+      - name: Commit and Push Sample File
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_PAT }}  # Use your PAT from secrets
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add sample.txt
+          git commit -m "Add sample.txt to UAT branch"
+          # Ensure the correct token is used without echoing it for security
+          git push https://x-access-token:${{ secrets.GIT_PAT }}@github.com/Datalake-HFCL/datalake-powerbi.git HEAD:uat
