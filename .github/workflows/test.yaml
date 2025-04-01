@@ -28,4 +28,4 @@ jobs:
           git add sample.txt
           git commit -m "Add sample.txt to UAT branch"
           # Ensure the correct token is used without echoing it for security
-          git push https://x-access-token:${{ secrets.GIT_PAT }}@github.com/Datalake-HFCL/datalake-powerbi.git HEAD:uat
+          git push https://x-access-token:${{ secrets.GIT_PAT }}@github.com/Datalake-HFCL/datalake-powerbi.git HEAD:uat 
